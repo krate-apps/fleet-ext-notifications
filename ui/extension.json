@@ -1,0 +1,151 @@
+{
+  "schema": 1,
+  "extensionId": "org.fleet.notifications",
+  "pages": [
+    {
+      "id": "notifications",
+      "title": "Notifications",
+      "route": "/ext/org.fleet.notifications/notifications"
+    }
+  ],
+  "actions": [
+    {
+      "id": "test-channel",
+      "label": "Send test notification",
+      "target": "global",
+      "primary": true
+    },
+    {
+      "id": "scan-now",
+      "label": "Scan events now",
+      "target": "global"
+    }
+  ],
+  "panels": [
+    {
+      "id": "notifications",
+      "title": "Notifications",
+      "placement": "settings"
+    }
+  ],
+  "forms": [
+    {
+      "id": "notify-settings",
+      "title": "Notifications settings",
+      "fields": [
+        {
+          "name": "enabled",
+          "label": "Enabled",
+          "kind": "boolean",
+          "help": "Master switch for this worker."
+        },
+        {
+          "name": "intervalSec",
+          "label": "Poll interval (seconds)",
+          "kind": "number",
+          "required": true,
+          "help": "How often the worker wakes up.",
+          "placeholder": "60",
+          "advanced": true
+        },
+        {
+          "name": "notifyAdded",
+          "label": "Notifications on add",
+          "kind": "boolean"
+        },
+        {
+          "name": "notifyFinished",
+          "label": "Notifications on finish",
+          "kind": "boolean"
+        },
+        {
+          "name": "notifyRemoved",
+          "label": "Notifications on remove",
+          "kind": "boolean"
+        },
+        {
+          "name": "notifyError",
+          "label": "Notifications on error state",
+          "kind": "boolean"
+        },
+        {
+          "name": "filterLabel",
+          "label": "Only label (empty = all)",
+          "kind": "text",
+          "placeholder": "tv",
+          "advanced": true
+        },
+        {
+          "name": "filterNameRegex",
+          "label": "Name regex filter (empty = all)",
+          "kind": "text",
+          "placeholder": "(?i)sample",
+          "advanced": true
+        },
+        {
+          "name": "minSizeMB",
+          "label": "Min size MiB (0 = off)",
+          "kind": "number",
+          "advanced": true
+        },
+        {
+          "name": "rateLimitMax",
+          "label": "Max messages per window",
+          "kind": "number",
+          "advanced": true
+        },
+        {
+          "name": "rateLimitWindowSec",
+          "label": "Rate-limit window (seconds)",
+          "kind": "number",
+          "advanced": true
+        },
+        {
+          "name": "templateAdded",
+          "label": "added",
+          "kind": "text",
+          "help": "{name} {hash} {size} {label} {ratio}",
+          "placeholder": "{name} added ({size})",
+          "advanced": true
+        },
+        {
+          "name": "templateFinished",
+          "label": "finished",
+          "kind": "text",
+          "help": "{name} {hash} {size} {label} {ratio}",
+          "placeholder": "{name} finished",
+          "advanced": true
+        },
+        {
+          "name": "templateRemoved",
+          "label": "removed",
+          "kind": "text",
+          "help": "{name} {hash} {size} {label} {ratio}",
+          "placeholder": "{name} removed",
+          "advanced": true
+        },
+        {
+          "name": "templateError",
+          "label": "error",
+          "kind": "text",
+          "help": "{name} {hash} {size} {label} {ratio}",
+          "placeholder": "{name} error",
+          "advanced": true
+        },
+        {
+          "name": "channelsText",
+          "label": "Channels (JSON lines — Expert)",
+          "kind": "textarea",
+          "required": true,
+          "advanced": true,
+          "help": "Also editable with the visual builder above. One JSON object per line: kind=ntfy|gotify|slack|pushover|email plus enabled, url/token/…",
+          "rows": 10,
+          "placeholder": "# one JSON object per line"
+        }
+      ],
+      "loadMethod": "ext.notifications.getSettings",
+      "submitMethod": "ext.notifications.saveSettings",
+      "description": "Turn on events, add channels with the visual builder (or Expert JSON)."
+    }
+  ]
+}
